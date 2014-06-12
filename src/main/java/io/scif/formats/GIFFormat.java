@@ -380,7 +380,7 @@ public class GIFFormat extends AbstractFormat {
 			meta.setImages(new Vector<byte[]>());
 			meta.setColorTables(new Vector<int[]>());
 
-			final String ident = getSource().readString(6);
+			final Location ident = getSource().readString(6);
 
 			if (!ident.startsWith(GIF_MAGIC_STRING)) {
 				throw new FormatException("Not a valid GIF file.");

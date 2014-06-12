@@ -462,7 +462,7 @@ public class CacheServiceTest {
 	}
 
 	// Creates a SCIFIOCellCache for the given id
-	private SCIFIOCellCache<ByteArray> makeCache(final String id)
+	private SCIFIOCellCache<ByteArray> makeCache(final Location id)
 		throws FormatException, IOException
 	{
 		final ReaderFilter rf =
@@ -478,7 +478,7 @@ public class CacheServiceTest {
 	private TestCellCache<ByteArray> makeTestCache(final long bytes)
 		throws FormatException, IOException
 	{
-		final String id = makeFakeFile(bytes);
+		final Location id = makeFakeFile(bytes);
 		final ReaderFilter rf =
 			scifio.initializer().initializeReader(id,
 				new SCIFIOConfig().checkerSetOpen(true));

@@ -57,7 +57,7 @@ import org.testng.annotations.Test;
 @Test(groups = "checkerTests")
 public class CheckerTest {
 
-	private final String id =
+	private final Location id =
 		"8bit-signed&pixelType=int8&axes=X,Y,Z,C,T&lengths=50,50,3,5,7.fake";
 	private final String falseId = "testFile.png";
 	private Checker c;

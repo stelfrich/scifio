@@ -71,7 +71,7 @@ public class ImgOpenerTest {
 	// Use the default constructor, which constructs a minimal context,
 	// to ensure all necessary services are present
 	private final ImgOpener imgOpener = new ImgOpener();
-	private final String id = "testImg&lengths=512,512,5&axes=X,Y,Time.fake";
+	private final Location id = "testImg&lengths=512,512,5&axes=X,Y,Time.fake";
 
 	/**
 	 * Verify that SCIFIO Metadata calibration values are preserved in an opened
@@ -140,7 +140,7 @@ public class ImgOpenerTest {
 	 */
 	@Test
 	public void testOpenAllImages() throws ImgIOException {
-		String id = "testImg&images=5&lengths=512,512&axes=X,Y.fake";
+		Location id = "testImg&images=5&lengths=512,512&axes=X,Y.fake";
 
 		// Open all images
 		List<SCIFIOImgPlus<?>> imgs =
@@ -166,7 +166,7 @@ public class ImgOpenerTest {
 	 * @throws ImgIOException 
 	 */
 	public void testOpenImageRange() throws ImgIOException {
-		String id = "testImg&images=5&lengths=512,512&axes=X,Y.fake";
+		Location id = "testImg&images=5&lengths=512,512&axes=X,Y.fake";
 
 		// Open images 0 and 3
 		List<SCIFIOImgPlus<?>> imgs =

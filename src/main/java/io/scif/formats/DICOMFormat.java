@@ -1120,7 +1120,7 @@ public class DICOMFormat extends AbstractFormat {
 		// -- Parser API Methods --
 
 		@Override
-		public int fileGroupOption(final String id) throws FormatException,
+		public int fileGroupOption(final Location id) throws FormatException,
 			IOException
 		{
 			return FormatTools.CAN_GROUP;
@@ -1779,7 +1779,7 @@ public class DICOMFormat extends AbstractFormat {
 				tag.setInSequence(false);
 			}
 
-			String id = TYPES.get(new Integer(tag.get()));
+			Location id = TYPES.get(new Integer(tag.get()));
 			int vr = tag.getVR();
 
 			if (id != null) {

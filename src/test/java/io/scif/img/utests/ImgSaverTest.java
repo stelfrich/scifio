@@ -52,7 +52,7 @@ import org.testng.annotations.Test;
  */
 public class ImgSaverTest {
 
-	private final String id = "testImg&lengths=512,512,5&axes=X,Y,Time.fake";
+	private final Location id = "testImg&lengths=512,512,5&axes=X,Y,Time.fake";
 	private final String out = "/Users/mhiner/loci/scifio/test.tif";
 	private final Context ctx = new Context();
 	private final LocationService locationService = ctx

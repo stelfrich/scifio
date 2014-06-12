@@ -165,7 +165,7 @@ public class FileStitcher extends AbstractReaderFilter {
 	 * Constructs a new FilePattern around the pattern extracted from the given
 	 * id.
 	 */
-	public FilePattern findPattern(final String id) {
+	public FilePattern findPattern(final Location id) {
 		return new FilePattern(getContext(), filePatternService.findPattern(id));
 	}
 
@@ -173,7 +173,7 @@ public class FileStitcher extends AbstractReaderFilter {
 	 * Finds the file pattern for the given ID, based on the state of the file
 	 * stitcher. Takes both ID map entries and the patternIds flag into account.
 	 */
-	public String[] findPatterns(final String id) {
+	public String[] findPatterns(final Location id) {
 		if (!patternIds) {
 			// find the containing patterns
 			final HashMap<String, Object> map = locationService.getIdMap();

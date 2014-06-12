@@ -55,7 +55,7 @@ import org.junit.Test;
 public class MetadataTest {
 
 	private final SCIFIO scifio = new SCIFIO();
-	private final String id =
+	private final Location id =
 		"testImg&lengths=620,512,5,6,7&axes=X,Y,Time,Z,Channel.fake";
 	private final String ndId =
 		"ndImg&axes=X,Y,Z,Channel,Time,Lifetime,Spectra,&lengths=256,128,2,6,10,4,8.fake";
@@ -216,7 +216,7 @@ public class MetadataTest {
 	 */
 	@Test
 	public void testTrailingAxis() throws IOException, FormatException {
-		final String id =
+		final Location id =
 			"testImg&planarDims=2&lengths=620,512,1,&axes=X,Y,Time.fake";
 		final Metadata m = scifio.initializer().parseMetadata(id);
 
@@ -236,7 +236,7 @@ public class MetadataTest {
 	 */
 	@Test
 	public void testAxisCount() throws IOException, FormatException {
-		final String id =
+		final Location id =
 			"testImg&lengths=620,512,1,5,1&axes=X,Y,Time,Z,Channel.fake";
 		final Metadata m = scifio.initializer().parseMetadata(id);
 
@@ -249,7 +249,7 @@ public class MetadataTest {
 	 */
 	@Test
 	public void testAdjustingTrailingAxis() throws IOException, FormatException {
-		final String id = "testImg&lengths=620,512,1&axes=X,Y,Time.fake";
+		final Location id = "testImg&lengths=620,512,1&axes=X,Y,Time.fake";
 		final Metadata m = scifio.initializer().parseMetadata(id);
 
 		assertEquals(2, m.get(0).getAxes().size());

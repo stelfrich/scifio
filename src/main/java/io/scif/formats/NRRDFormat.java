@@ -242,7 +242,7 @@ public class NRRDFormat extends AbstractFormat {
 		public Metadata parse(RandomAccessInputStream stream, final Metadata meta)
 			throws IOException, FormatException
 		{
-			String id = stream.getFileName();
+			Location id = stream.getFileName();
 
 			// make sure we actually have the .nrrd/.nhdr file
 			if (!FormatTools.checkSuffix(id, "nhdr") &&
@@ -402,14 +402,14 @@ public class NRRDFormat extends AbstractFormat {
 		}
 
 		@Override
-		public boolean isSingleFile(final String id) throws FormatException,
+		public boolean isSingleFile(final Location id) throws FormatException,
 			IOException
 		{
 			return FormatTools.checkSuffix(id, "nrrd");
 		}
 
 		@Override
-		public int fileGroupOption(final String id) throws FormatException,
+		public int fileGroupOption(final Location id) throws FormatException,
 			IOException
 		{
 			return FormatTools.MUST_GROUP;
@@ -433,14 +433,14 @@ public class NRRDFormat extends AbstractFormat {
 		}
 
 		@Override
-		public boolean isSingleFile(final String id) throws FormatException,
+		public boolean isSingleFile(final Location id) throws FormatException,
 			IOException
 		{
 			return FormatTools.checkSuffix(id, "nrrd");
 		}
 
 		@Override
-		public int fileGroupOption(final String id) throws FormatException,
+		public int fileGroupOption(final Location id) throws FormatException,
 			IOException
 		{
 			return FormatTools.MUST_GROUP;

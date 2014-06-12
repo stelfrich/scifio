@@ -59,7 +59,7 @@ import org.testng.annotations.Test;
 @Test(groups = "translatorTests")
 public class TranslatorTest {
 
-	private final String id =
+	private final Location id =
 		"interleaved&pixelType=int8&axes=Channel,X,Y,Z&lengths=3,256,256,5.fake";
 	private final String output = "testFile.ics";
 

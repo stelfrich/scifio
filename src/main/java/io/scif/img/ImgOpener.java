@@ -67,6 +67,7 @@ import net.imglib2.type.numeric.RealType;
 
 import org.scijava.Context;
 import org.scijava.app.StatusService;
+import org.scijava.io.Location;
 import org.scijava.plugin.Parameter;
 
 /**
@@ -120,7 +121,7 @@ public class ImgOpener extends AbstractImgIOComponent {
 	 * @throws ImgIOException if there is a problem reading the image data.
 	 */
 	public <T extends RealType<T> & NativeType<T>> List<SCIFIOImgPlus<T>> openImgs(
-		final String source, final T type) throws ImgIOException
+		final Location source, final T type) throws ImgIOException
 	{
 		return openImgs(source, type, null);
 	}
@@ -135,7 +136,7 @@ public class ImgOpener extends AbstractImgIOComponent {
 	 * @throws ImgIOException if there is a problem reading the image data.
 	 */
 	public List<SCIFIOImgPlus<?>>
-		openImgs(final String source, SCIFIOConfig config)
+		openImgs(final Location source, SCIFIOConfig config)
 			throws ImgIOException
 	{
 		if (config == null) {
@@ -341,7 +342,7 @@ public class ImgOpener extends AbstractImgIOComponent {
 			final SCIFIOImgPlus<T> imgPlus =
 				makeImgPlus(img, reader, imageIndex.intValue());
 
-			final String id = reader.getCurrentFile();
+			final Location id = reader.getCurrentFile();
 			imgPlus.setSource(id);
 			imgPlus.initializeColorTables((int) reader.getPlaneCount(imageIndex
 				.intValue()));
@@ -530,7 +531,7 @@ public class ImgOpener extends AbstractImgIOComponent {
 	 * @param config - Options object for opening this dataset
 	 * @return A Reader initialized to open the specified id
 	 */
-	private Reader createReader(final String source, final SCIFIOConfig config)
+	private Reader createReader(final Location source, final SCIFIOConfig config)
 		throws ImgIOException
 	{
 
@@ -600,7 +601,7 @@ public class ImgOpener extends AbstractImgIOComponent {
 	private <T extends RealType<T>> SCIFIOImgPlus<T> makeImgPlus(
 		final Img<T> img, final Reader r, final int imageIndex)
 	{
-		final String id = r.getCurrentFile();
+		final Location id = r.getCurrentFile();
 		final File idFile = new File(id);
 		final String name = idFile.exists() ? idFile.getName() : id;
 

@@ -227,7 +227,7 @@ public class PreviewPane extends JPanel implements PropertyChangeListener,
 			}
 
 			try { // catch-all for unanticipated exceptions
-				final String id = loadId;
+				final Location id = loadId;
 				if (id == lastId) continue;
 				lastId = id;
 

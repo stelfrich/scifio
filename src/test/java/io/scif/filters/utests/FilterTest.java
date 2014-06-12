@@ -59,7 +59,7 @@ import org.testng.annotations.Test;
 public class FilterTest {
 
 	private final SCIFIO scifio = makeSCIFIO();
-	private final String id = "testImg&lengths=512,512.fake";
+	private final Location id = "testImg&lengths=512,512.fake";
 	private Reader readerFilter;
 
 	@AfterMethod
@@ -90,7 +90,7 @@ public class FilterTest {
 	 */
 	@Test
 	public void testSetSource() throws FormatException, IOException {
-		final String id2 = "testImg&lengths=256,128,5&axes=X,Y,Time.fake";
+		final Location id2 = "testImg&lengths=256,128,5&axes=X,Y,Time.fake";
 
 		readerFilter =
 			scifio.initializer().initializeReader(id,

@@ -133,7 +133,7 @@ public class DefaultLocationService extends AbstractService implements
 	}
 
 	@Override
-	public void mapId(final String id, final String filename) {
+	public void mapId(final Location id, final String filename) {
 		if (id == null) return;
 		if (filename == null) getIdMap().remove(id);
 		else getIdMap().put(id, filename);
@@ -141,7 +141,7 @@ public class DefaultLocationService extends AbstractService implements
 	}
 
 	@Override
-	public void mapFile(final String id, final IRandomAccess ira) {
+	public void mapFile(final Location id, final IRandomAccess ira) {
 		if (id == null) return;
 		if (ira == null) getIdMap().remove(id);
 		else getIdMap().put(id, ira);
@@ -149,7 +149,7 @@ public class DefaultLocationService extends AbstractService implements
 	}
 
 	@Override
-	public String getMappedId(final String id) {
+	public String getMappedId(final Location id) {
 		if (getIdMap() == null) return id;
 		String filename = null;
 		if (id != null && (getIdMap().get(id) instanceof String)) {
@@ -159,7 +159,7 @@ public class DefaultLocationService extends AbstractService implements
 	}
 
 	@Override
-	public IRandomAccess getMappedFile(final String id) {
+	public IRandomAccess getMappedFile(final Location id) {
 		if (getIdMap() == null) return null;
 		IRandomAccess ira = null;
 		if (id != null && (getIdMap().get(id) instanceof IRandomAccess)) {
@@ -180,19 +180,19 @@ public class DefaultLocationService extends AbstractService implements
 	}
 
 	@Override
-	public IRandomAccess getHandle(final String id) throws IOException {
+	public IRandomAccess getHandle(final Location id) throws IOException {
 		return getHandle(id, false);
 	}
 
 	@Override
-	public IRandomAccess getHandle(final String id, final boolean writable)
+	public IRandomAccess getHandle(final Location id, final boolean writable)
 		throws IOException
 	{
 		return getHandle(id, writable, true);
 	}
 
 	@Override
-	public IRandomAccess getHandle(final String id, final boolean writable,
+	public IRandomAccess getHandle(final Location id, final boolean writable,
 		final boolean allowArchiveHandles) throws IOException
 	{
 		log.trace("getHandle(id = " + id + ", writable = " + writable + ")");
@@ -234,7 +234,7 @@ public class DefaultLocationService extends AbstractService implements
 	}
 
 	@Override
-	public void checkValidId(final String id) throws IOException {
+	public void checkValidId(final Location id) throws IOException {
 		if (getMappedFile(id) != null) {
 			// NB: The id maps directly to an IRandomAccess handle, so is valid. Do
 			// not destroy an existing mapped IRandomAccess handle by closing it.

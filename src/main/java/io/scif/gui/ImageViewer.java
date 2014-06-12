@@ -248,7 +248,7 @@ public class ImageViewer extends JFrame implements ActionListener,
 	}
 
 	/** Opens the given data source using the current format reader. */
-	public void open(final String id) {
+	public void open(final Location id) {
 		wait(true);
 		try {
 			canCloseReader = true;
@@ -284,7 +284,7 @@ public class ImageViewer extends JFrame implements ActionListener,
 	 * Saves the current images to the given destination using the current format
 	 * writer.
 	 */
-	public void save(final String id) {
+	public void save(final Location id) {
 		if (images == null) return;
 		wait(true);
 		try {
@@ -627,7 +627,7 @@ public class ImageViewer extends JFrame implements ActionListener,
 	 * Opens from the given data source using the specified reader in a separate
 	 * thread.
 	 */
-	protected void open(final String id, final Reader r) {
+	protected void open(final Location id, final Reader r) {
 		new Thread("ImageViewer-Opener") {
 
 			@Override
@@ -648,7 +648,7 @@ public class ImageViewer extends JFrame implements ActionListener,
 	 * Saves to the given data destination using the specified writer in a
 	 * separate thread.
 	 */
-	protected void save(final String id, final Writer w) {
+	protected void save(final Location id, final Writer w) {
 		new Thread("ImageViewer-Saver") {
 
 			@Override

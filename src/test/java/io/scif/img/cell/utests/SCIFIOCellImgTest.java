@@ -57,7 +57,7 @@ public class SCIFIOCellImgTest {
 	@Test
 	public void testReaderCleanup() {
 		// Make an id that will trigger cell creation
-		final String id = "lotsofplanes&axes=X,Y,Z&lengths=256,256,100000.fake";
+		final Location id = "lotsofplanes&axes=X,Y,Z&lengths=256,256,100000.fake";
 		final SCIFIOImgPlus<?> img = IO.open(id);
 		assertNotNull(((SCIFIOCellImg) img.getImg()).reader().getMetadata());
 		img.dispose();
@@ -78,7 +78,7 @@ public class SCIFIOCellImgTest {
 //	@Test
 //	public void testReaderOutOfScopeCleanup() {
 //		// Make an id that will trigger cell creation
-//		final String id = "lotsofplanes&axes=X,Y,Z&lengths=256,256,100000.fake";
+//		final Location id = "lotsofplanes&axes=X,Y,Z&lengths=256,256,100000.fake";
 //		SCIFIOImgPlus<?> img = IO.open(id);
 //		assertNotNull(((SCIFIOCellImg) img.getImg()).reader().getMetadata());
 //		final WeakReference<Metadata> wr =

@@ -58,7 +58,7 @@ public class VirtualHandle extends StreamHandle {
 	 * except setting the file field, as the id does not represent a physical
 	 * file.
 	 */
-	public VirtualHandle(final String id) throws IOException {
+	public VirtualHandle(final Location id) throws IOException {
 		super();
 		setFile(id);
 	}
@@ -66,7 +66,7 @@ public class VirtualHandle extends StreamHandle {
 	// -- IStreamAccess API Methods --
 
 	@Override
-	public boolean isConstructable(final String id) throws IOException {
+	public boolean isConstructable(final Location id) throws IOException {
 		// Can always be created
 		return true;
 	}

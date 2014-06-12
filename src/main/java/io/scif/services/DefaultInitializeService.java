@@ -76,14 +76,14 @@ public class DefaultInitializeService extends AbstractService implements
 	// -- InitializeService API Methods --
 
 	@Override
-	public ReaderFilter initializeReader(final String id) throws FormatException,
+	public ReaderFilter initializeReader(final Location id) throws FormatException,
 		IOException
 	{
 		return initializeReader(id, new SCIFIOConfig().checkerSetOpen(false));
 	}
 
 	@Override
-	public ReaderFilter initializeReader(final String id,
+	public ReaderFilter initializeReader(final Location id,
 		final SCIFIOConfig config) throws FormatException, IOException
 	{
 		final Reader r = formatService.getFormat(id, config).createReader();
@@ -152,14 +152,14 @@ public class DefaultInitializeService extends AbstractService implements
 	}
 
 	@Override
-	public Metadata parseMetadata(final String id) throws IOException,
+	public Metadata parseMetadata(final Location id) throws IOException,
 		FormatException
 	{
 		return parseMetadata(id, new SCIFIOConfig().checkerSetOpen(false));
 	}
 
 	@Override
-	public Metadata parseMetadata(final String id, final SCIFIOConfig config)
+	public Metadata parseMetadata(final Location id, final SCIFIOConfig config)
 		throws FormatException, IOException
 	{
 		final Format format = formatService.getFormat(id, config);

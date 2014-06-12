@@ -260,24 +260,24 @@ public class DefaultFormatService extends AbstractService implements
 	 * @return A Format reference compatible with the provided source.
 	 */
 	@Override
-	public Format getFormat(final String id) throws FormatException {
+	public Format getFormat(final Location id) throws FormatException {
 		return getFormat(id, new SCIFIOConfig().checkerSetOpen(false));
 	}
 
 	@Override
-	public Format getFormat(final String id, final SCIFIOConfig config)
+	public Format getFormat(final Location id, final SCIFIOConfig config)
 		throws FormatException
 	{
 		return getFormatList(id, config, true).get(0);
 	}
 
 	@Override
-	public List<Format> getFormatList(final String id) throws FormatException {
+	public List<Format> getFormatList(final Location id) throws FormatException {
 		return getFormatList(id, new SCIFIOConfig().checkerSetOpen(false), false);
 	}
 
 	@Override
-	public List<Format> getFormatList(final String id, final SCIFIOConfig config,
+	public List<Format> getFormatList(final Location id, final SCIFIOConfig config,
 		final boolean greedy) throws FormatException
 	{
 

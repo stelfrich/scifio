@@ -119,7 +119,7 @@ public class ICSFormat extends AbstractFormat {
 		private String icsId = "";
 
 		/** IDS file name */
-		private String idsId = "";
+		private Location idsId = "";
 
 		/** ICS Metadata */
 		private Hashtable<String, String> keyValPairs;
@@ -340,7 +340,7 @@ public class ICSFormat extends AbstractFormat {
 			return idsId;
 		}
 
-		public void setIdsId(final String idsId) {
+		public void setIdsId(final Location idsId) {
 			this.idsId = idsId;
 		}
 
@@ -1184,7 +1184,7 @@ public class ICSFormat extends AbstractFormat {
 		/**
 		 * @return True if the provided id is a version 2 ics id.
 		 */
-		public boolean isVersionTwo(final String id) throws IOException {
+		public boolean isVersionTwo(final Location id) throws IOException {
 			final RandomAccessInputStream f =
 				new RandomAccessInputStream(getContext(), id);
 			final boolean singleFile =
@@ -1259,7 +1259,7 @@ public class ICSFormat extends AbstractFormat {
 			reader.close();
 			getSource().close();
 
-			final String id = meta.isVersionTwo() ? meta.icsId : meta.idsId;
+			final Location id = meta.isVersionTwo() ? meta.icsId : meta.idsId;
 			updateSource(id);
 
 			if (meta.versionTwo) {
@@ -1683,7 +1683,7 @@ public class ICSFormat extends AbstractFormat {
 		}
 
 		@Override
-		public void setDest(final String id) throws FormatException, IOException {
+		public void setDest(final Location id) throws FormatException, IOException {
 			// FIXME consolidate this code in setDest when the RAOS id is exposed.
 			// Update the id if necessary
 			if (FormatTools.checkSuffix(id, "ids")) {
@@ -1696,7 +1696,7 @@ public class ICSFormat extends AbstractFormat {
 		}
 
 		@Override
-		public void setDest(final String id, final int imageIndex)
+		public void setDest(final Location id, final int imageIndex)
 			throws FormatException, IOException
 		{
 			// FIXME consolidate this code in setDest when the RAOS id is exposed.
@@ -1711,7 +1711,7 @@ public class ICSFormat extends AbstractFormat {
 		}
 
 		@Override
-		public void setDest(final String id, final int imageIndex,
+		public void setDest(final Location id, final int imageIndex,
 			final SCIFIOConfig config) throws FormatException, IOException
 		{
 			// FIXME consolidate this code in setDest when the RAOS id is exposed.
@@ -1825,7 +1825,7 @@ public class ICSFormat extends AbstractFormat {
 		// -- Helper methods --
 
 		/* Sets the ICS Metadta icsId and idsId fields */
-		private void updateMetadataIds(final String id) {
+		private void updateMetadataIds(final Location id) {
 			getMetadata().idsId =
 				FormatTools.checkSuffix(id, "ids") ? id : makeIdsId(id);
 			getMetadata().icsId =
@@ -1891,7 +1891,7 @@ public class ICSFormat extends AbstractFormat {
 		}
 
 		/* Turns the provided id into a .ics path */
-		private String makeIcsId(final String idsId) {
+		private String makeIcsId(final Location idsId) {
 			return setIdExtension(idsId, ".ics");
 		}
 
@@ -1903,7 +1903,7 @@ public class ICSFormat extends AbstractFormat {
 		/* Replaces the current extension of the provided id with the
 		 * provided extension
 		 */
-		private String setIdExtension(String id, final String extension) {
+		private String setIdExtension(Location id, final String extension) {
 			id = id.substring(0, id.lastIndexOf("."));
 			id += extension;
 			return id;

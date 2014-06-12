@@ -47,7 +47,7 @@ public interface IStreamAccess extends SCIFIOPlugin, IRandomAccess {
 	 * 
 	 * @throws IOException
 	 */
-	boolean isConstructable(String id) throws IOException;
+	boolean isConstructable(Location id) throws IOException;
 
 	/**
 	 * Initializes the current handle using the provided file id.

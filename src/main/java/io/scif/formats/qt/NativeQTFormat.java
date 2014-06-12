@@ -383,7 +383,7 @@ public class NativeQTFormat extends AbstractFormat {
 			}
 
 			log().info("Populating metadata");
-			final String id = stream.getFileName();
+			final Location id = stream.getFileName();
 
 			// this handles the case where the data and resource forks have been
 			// separated

@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.scijava.Priority;
+import org.scijava.io.Location;
 
 /**
  * A collection of methods for finding {@link io.scif.Format} instances given a
@@ -185,43 +186,43 @@ public interface FormatService extends SCIFIOService {
 	 * Formats are checked in ascending order of their priority. The source is
 	 * read if necessary to determine compatibility.
 	 * 
-	 * @param id the source
+	 * @param source the data source
 	 * @return A Format reference compatible with the provided source.
 	 */
-	Format getFormat(String id) throws FormatException;
+	Format getFormat(Location source) throws FormatException;
 
 	/**
 	 * Returns the first Format known to be compatible with the source provided.
 	 * Formats are checked in ascending order of their priority.
 	 * 
-	 * @param id the source
+	 * @param source the data source
 	 * @param config Configuration for this method execution.
 	 * @return A Format reference compatible with the provided source.
 	 */
-	Format getFormat(String id, SCIFIOConfig config) throws FormatException;
+	Format getFormat(Location source, SCIFIOConfig config) throws FormatException;
 
 	/**
 	 * Returns a list of all formats that are compatible with the source provided,
 	 * ordered by their priority. The source is read if necessary to determine
 	 * compatibility.
 	 * 
-	 * @param id the source
+	 * @param source the data source
 	 * @return An List of Format references compatible with the provided source.
 	 */
-	List<Format> getFormatList(String id) throws FormatException;
+	List<Format> getFormatList(Location source) throws FormatException;
 
 	/**
 	 * Returns a list of all formats that are compatible with the source provided,
 	 * ordered by their priority.
 	 * 
-	 * @param id the source
+	 * @param source the data source
 	 * @param config Configuration for this method execution.
 	 * @param greedy if true, the search will terminate after finding the first
 	 *          compatible format
 	 * @return A List of Format references compatible with the provided source.
 	 */
-	List<Format> getFormatList(String id, SCIFIOConfig config, boolean greedy)
-		throws FormatException;
+	List<Format> getFormatList(Location source, SCIFIOConfig config,
+		boolean greedy) throws FormatException;
 
 	/**
 	 * Returns a list of all Formats within this context.

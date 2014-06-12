@@ -98,10 +98,10 @@ public interface LocationService extends SCIFIOService {
 	 * 
 	 * @see #getMappedId(String)
 	 */
-	void mapId(String id, String filename);
+	void mapId(Location id, String filename);
 
 	/** Maps the given id to the given IRandomAccess object. */
-	void mapFile(String id, IRandomAccess ira);
+	void mapFile(Location id, IRandomAccess ira);
 
 	/**
 	 * Gets the actual filename on disk for the given id. Typically the id itself
@@ -113,10 +113,10 @@ public interface LocationService extends SCIFIOService {
 	 * 
 	 * @see #mapId(String, String)
 	 */
-	String getMappedId(String id);
+	String getMappedId(Location id);
 
 	/** Gets the random access handle for the given id. */
-	IRandomAccess getMappedFile(String id);
+	IRandomAccess getMappedFile(Location id);
 
 	/** Return the id mapping. */
 	HashMap<String, Object> getIdMap();
@@ -136,7 +136,7 @@ public interface LocationService extends SCIFIOService {
 	 * 
 	 * @see io.scif.io.IRandomAccess
 	 */
-	IRandomAccess getHandle(String id) throws IOException;
+	IRandomAccess getHandle(Location id) throws IOException;
 
 	/**
 	 * Gets an IRandomAccess object that can read from or write to the given file.
@@ -146,7 +146,7 @@ public interface LocationService extends SCIFIOService {
 	 * 
 	 * @see io.scif.io.IRandomAccess
 	 */
-	IRandomAccess getHandle(String id, boolean writable) throws IOException;
+	IRandomAccess getHandle(Location id, boolean writable) throws IOException;
 
 	/**
 	 * Gets an IRandomAccess object that can read from or write to the given file.
@@ -156,7 +156,7 @@ public interface LocationService extends SCIFIOService {
 	 * 
 	 * @see io.scif.io.IRandomAccess
 	 */
-	IRandomAccess getHandle(String id, boolean writable,
+	IRandomAccess getHandle(Location id, boolean writable,
 		boolean allowArchiveHandles) throws IOException;
 
 	/**
@@ -165,7 +165,7 @@ public interface LocationService extends SCIFIOService {
 	 * @param id The id string to validate.
 	 * @throws IOException if the id is not valid.
 	 */
-	void checkValidId(String id) throws IOException;
+	void checkValidId(Location id) throws IOException;
 
 	/**
 	 * Returns the set of listings for the provided key.

@@ -183,7 +183,7 @@ public class SCIFIOCellCache<A extends ArrayDataAccess<?>> implements
 	 * @return The cached cell if it was found, or null
 	 */
 	@SuppressWarnings("unchecked")
-	private SCIFIOCell<A> checkCache(final String id, final int index) {
+	private SCIFIOCell<A> checkCache(final Location id, final int index) {
 		SCIFIOCell<A> cell = null;
 
 		final Integer k = cacheService.getKey(id, index);

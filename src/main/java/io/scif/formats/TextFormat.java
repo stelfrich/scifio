@@ -338,7 +338,7 @@ public class TextFormat extends AbstractFormat {
 			}
 		}
 
-		private List<String> readFile(final String id) throws IOException {
+		private List<String> readFile(final Location id) throws IOException {
 			final List<String> lines = new ArrayList<String>();
 			long time = System.currentTimeMillis();
 			final IRandomAccess handle = locationService.getMappedFile(id);

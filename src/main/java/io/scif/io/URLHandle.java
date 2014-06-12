@@ -116,7 +116,7 @@ public class URLHandle extends StreamHandle {
 	// -- IStreamAccess API methods --
 
 	@Override
-	public boolean isConstructable(final String id) throws IOException {
+	public boolean isConstructable(final Location id) throws IOException {
 		return id.startsWith("http:") || id.startsWith("file:");
 	}
 

@@ -50,7 +50,7 @@ import org.testng.annotations.Test;
 public class PlaneSeparatorTest {
 
 	private final SCIFIO scifio = new SCIFIO();
-	private final String id =
+	private final Location id =
 		"testImg&lengths=3,4,512,512&axes=Channel,Time,X,Y.fake";
 
 	/**

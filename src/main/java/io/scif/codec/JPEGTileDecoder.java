@@ -44,6 +44,7 @@ import java.util.Hashtable;
 
 import org.scijava.AbstractContextual;
 import org.scijava.Context;
+import org.scijava.io.Location;
 import org.scijava.log.LogService;
 import org.scijava.plugin.Parameter;
 
@@ -69,7 +70,7 @@ public class JPEGTileDecoder extends AbstractContextual {
 
 	// -- JPEGTileDecoder API methods --
 
-	public void initialize(final String id, final int imageWidth) {
+	public void initialize(final Location id, final int imageWidth) {
 		try {
 			initialize(new RandomAccessInputStream(getContext(), id), imageWidth);
 		}

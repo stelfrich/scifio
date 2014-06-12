@@ -50,7 +50,7 @@ import org.testng.annotations.Test;
 public class MinMaxFilterTest {
 
 	private final SCIFIO scifio = new SCIFIO();
-	private final String id =
+	private final Location id =
 		"testImg&lengths=3,127,127,4&axes=Channel,X,Y,Time&planarDims=3.fake";
 
 	@Test

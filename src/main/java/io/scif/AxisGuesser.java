@@ -418,7 +418,7 @@ public class AxisGuesser {
 			final FilePattern fp = new FilePattern(context, pat);
 			if (fp.isValid()) {
 				log.info("Pattern is valid.");
-				final String id = fp.getFiles()[0];
+				final Location id = fp.getFiles()[0];
 				if (!new Location(context, id).exists()) {
 					log.info("File '" + id + "' does not exist.");
 				}

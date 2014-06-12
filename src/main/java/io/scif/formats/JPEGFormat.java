@@ -157,7 +157,7 @@ public class JPEGFormat extends ImageIOFormat {
 			final Metadata meta, final SCIFIOConfig config) throws IOException,
 			FormatException
 		{
-			final String id = stream.getFileName();
+			final Location id = stream.getFileName();
 			try {
 				super.typedParse(stream, meta, config);
 			}

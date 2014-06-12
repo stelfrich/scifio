@@ -274,7 +274,7 @@ public class ZipFormat extends AbstractFormat {
 	private static class ZipUtilities {
 
 		/**
-		 * Extracts the String id of the provided stream.
+		 * Extracts the Location id of the provided stream.
 		 * 
 		 * @param locationService - The location service to use for mapping files
 		 * @param stream - Stream, built around a .zip file, to extract the actual
@@ -302,7 +302,7 @@ public class ZipFormat extends AbstractFormat {
 
 			final ZipHandle base =
 				new ZipHandle(locationService.getContext(), stream.getFileName());
-			final String id = base.getEntryName();
+			final Location id = base.getEntryName();
 			base.close();
 
 			return id;
@@ -320,7 +320,7 @@ public class ZipFormat extends AbstractFormat {
 			final RandomAccessInputStream stream) throws IOException
 		{
 			// NB: We need a raw handle on the ZIP data itself, not a ZipHandle.
-			final String id = stream.getFileName();
+			final Location id = stream.getFileName();
 			final IRandomAccess rawHandle =
 				locationService.getHandle(id, false, false);
 			return new RandomAccessInputStream(locationService.getContext(),

@@ -44,10 +44,10 @@ public interface Groupable {
 	 * Returns an int indicating that we cannot, must, or might group the files in
 	 * a given dataset.
 	 */
-	int fileGroupOption(String id) throws FormatException, IOException;
+	int fileGroupOption(Location id) throws FormatException, IOException;
 
 	/** Returns true if this is a single-file format. */
-	boolean isSingleFile(String id) throws FormatException, IOException;
+	boolean isSingleFile(Location id) throws FormatException, IOException;
 
 	/** Returns true if this format supports multi-file datasets. */
 	boolean hasCompanionFiles();
