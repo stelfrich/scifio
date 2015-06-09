@@ -39,6 +39,8 @@ import io.scif.filters.ReaderFilter;
 
 import java.io.IOException;
 
+import org.scijava.io.Location;
+
 /**
  * A collection of methods for initializing the IO components of SCIFIO (Readers
  * and Writers). All parsing and Metadata setup is done automatically.
@@ -56,13 +58,13 @@ import java.io.IOException;
 public interface InitializeService extends SCIFIOService {
 
 	/**
-	 * See {@link #initializeReader(String, SCIFIOConfig)}. Will not open the
+	 * See {@link #initializeReader(Location, SCIFIOConfig)}. Will not open the
 	 * image source while parsing metadata.
 	 *
 	 * @param id Name of the image source to be read.
 	 * @return An initialized {@code Reader}.
 	 */
-	ReaderFilter initializeReader(String id) throws FormatException, IOException;
+	ReaderFilter initializeReader(Location id) throws FormatException, IOException;
 
 	/**
 	 * Convenience method for creating a {@code Reader} component that is ready to
@@ -73,7 +75,7 @@ public interface InitializeService extends SCIFIOService {
 	 * @param config Configuration for this method execution.
 	 * @return An initialized {@code Reader}.
 	 */
-	ReaderFilter initializeReader(String id, SCIFIOConfig config)
+	ReaderFilter initializeReader(Location id, SCIFIOConfig config)
 		throws FormatException, IOException;
 
 	/**
@@ -84,7 +86,7 @@ public interface InitializeService extends SCIFIOService {
 	 * @param destination Name of the writing destination.
 	 * @return An initialized {@code Writer}.
 	 */
-	Writer initializeWriter(String source, String destination)
+	Writer initializeWriter(Location source, Location destination)
 		throws FormatException, IOException;
 
 	/**
@@ -96,7 +98,7 @@ public interface InitializeService extends SCIFIOService {
 	 * @return An initialized {@code Writer}.
 	 */
 	Writer
-		initializeWriter(String source, String destination, SCIFIOConfig config)
+		initializeWriter(Location source, Location destination, SCIFIOConfig config)
 			throws FormatException, IOException;
 
 	/**
@@ -107,7 +109,7 @@ public interface InitializeService extends SCIFIOService {
 	 * @param destination Name of the writing destination.
 	 * @return An initialized {@code Writer}.
 	 */
-	Writer initializeWriter(Metadata sourceMeta, String destination)
+	Writer initializeWriter(Metadata sourceMeta, Location destination)
 		throws FormatException, IOException;
 
 	/**
@@ -118,7 +120,7 @@ public interface InitializeService extends SCIFIOService {
 	 * @param config Configuration information to use for this parse.
 	 * @return An initialized {@code Writer}.
 	 */
-	Writer initializeWriter(Metadata sourceMeta, String destination,
+	Writer initializeWriter(Metadata sourceMeta, Location destination,
 		SCIFIOConfig config) throws FormatException, IOException;
 
 	/**
@@ -132,7 +134,7 @@ public interface InitializeService extends SCIFIOService {
 	 * @throws FormatException
 	 * @throws IOException
 	 */
-	Metadata parseMetadata(String id) throws IOException, FormatException;
+	Metadata parseMetadata(Location id) throws IOException, FormatException;
 
 	/**
 	 * As {@link #parseMetadata(String)} with a flag to open the underlying
@@ -144,6 +146,6 @@ public interface InitializeService extends SCIFIOService {
 	 * @throws FormatException
 	 * @throws IOException
 	 */
-	Metadata parseMetadata(String id, SCIFIOConfig config)
+	Metadata parseMetadata(Location id, SCIFIOConfig config)
 		throws FormatException, IOException;
 }

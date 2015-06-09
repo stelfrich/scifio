@@ -31,10 +31,12 @@
 package io.scif;
 
 import io.scif.config.SCIFIOConfig;
-import io.scif.io.RandomAccessInputStream;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.scijava.io.DataHandleInputStream;
+import org.scijava.io.Location;
 
 /**
  * Interface for all SCIFIO Readers.
@@ -164,7 +166,7 @@ public interface Reader extends HasFormat, HasSource, Groupable {
 		IOException;
 
 	/** Returns the current file. */
-	String getCurrentFile();
+	Location getCurrentFile();
 
 	/** Returns the list of domains represented by the current file. */
 	String[] getDomains();
@@ -172,9 +174,9 @@ public interface Reader extends HasFormat, HasSource, Groupable {
 	/**
 	 * Retrieves the current input stream for this reader.
 	 *
-	 * @return A RandomAccessInputStream
+	 * @return A DataHandleInputStream<Location>
 	 */
-	RandomAccessInputStream getStream();
+	DataHandleInputStream<Location> getStream();
 
 	/**
 	 * Retrieves all underlying readers. Returns null if there are no underlying
@@ -222,7 +224,7 @@ public interface Reader extends HasFormat, HasSource, Groupable {
 	 * @param fileName
 	 * @throws IOException
 	 */
-	void setSource(String fileName) throws IOException;
+	void setSource(Location fileName) throws IOException;
 
 	/**
 	 * Sets the source for this reader to read from.
@@ -237,16 +239,16 @@ public interface Reader extends HasFormat, HasSource, Groupable {
 	 *
 	 * @param stream - The stream to read from
 	 */
-	void setSource(RandomAccessInputStream stream) throws IOException;
+	void setSource(DataHandleInputStream<Location> stream) throws IOException;
 
 	/**
-	 * As {@link #setSource(String)} with configuration options.
+	 * As {@link #setSource(Location)} with configuration options.
 	 *
 	 * @param fileName
 	 * @param config Configuration information to use for this read.
 	 * @throws IOException
 	 */
-	void setSource(String fileName, SCIFIOConfig config) throws IOException;
+	void setSource(Location fileName, SCIFIOConfig config) throws IOException;
 
 	/**
 	 * As {@link #setSource(File)} with configuration options.
@@ -258,12 +260,12 @@ public interface Reader extends HasFormat, HasSource, Groupable {
 	void setSource(File file, SCIFIOConfig config) throws IOException;
 
 	/**
-	 * As {@link #setSource(RandomAccessInputStream)} with configuration options.
+	 * As {@link #setSource(DataHandleInputStream<Location>)} with configuration options.
 	 *
 	 * @param stream - The stream to read from
 	 * @param config Configuration information to use for this read.
 	 */
-	void setSource(RandomAccessInputStream stream, SCIFIOConfig config)
+	void setSource(DataHandleInputStream<Location> stream, SCIFIOConfig config)
 		throws IOException;
 
 	/**
@@ -272,7 +274,7 @@ public interface Reader extends HasFormat, HasSource, Groupable {
 	 * @throws IllegalArgumentException If the provided {@code Plane} type is not
 	 *           compatible with this {@code Reader}.
 	 */
-	Plane readPlane(RandomAccessInputStream s, int imageIndex, long[] planeMin,
+	Plane readPlane(DataHandleInputStream<Location> s, int imageIndex, long[] planeMin,
 		long[] planeMax, Plane plane) throws IOException;
 
 	/**
@@ -281,7 +283,7 @@ public interface Reader extends HasFormat, HasSource, Groupable {
 	 * @throws IllegalArgumentException If the provided {@code Plane} type is not
 	 *           compatible with this {@code Reader}.
 	 */
-	Plane readPlane(RandomAccessInputStream s, int imageIndex, long[] planeMin,
+	Plane readPlane(DataHandleInputStream<Location> s, int imageIndex, long[] planeMin,
 		long[] planeMax, int scanlinePad, Plane plane) throws IOException;
 
 	/** Determines the number of planes in the current file. */

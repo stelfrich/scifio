@@ -34,7 +34,6 @@ import io.scif.AxisGuesser;
 import io.scif.FilePattern;
 import io.scif.NumberFilter;
 import io.scif.common.DataTools;
-import io.scif.io.Location;
 
 import java.io.File;
 import java.math.BigInteger;
@@ -46,6 +45,7 @@ import java.util.regex.Pattern;
 import org.scijava.plugin.Plugin;
 import org.scijava.service.AbstractService;
 import org.scijava.service.Service;
+import org.scijava.io.Location;
 
 /**
  * Default {@link FilePatternService} implementation.

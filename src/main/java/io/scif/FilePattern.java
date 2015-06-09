@@ -30,8 +30,6 @@
 
 package io.scif;
 
-import io.scif.io.Location;
-
 import java.io.File;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -41,6 +39,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.scijava.Context;
+import org.scijava.io.Location;
 import org.scijava.log.LogService;
 
 /**

@@ -41,6 +41,12 @@ import java.awt.image.ColorModel;
 import java.io.File;
 import java.io.IOException;
 
+import org.scijava.io.DataHandle;
+import org.scijava.io.DataHandleOutputStream;
+import org.scijava.io.DataHandleService;
+import org.scijava.io.FileLocation;
+import org.scijava.io.Location;
+
 import net.imagej.axis.Axes;
 
 /**
@@ -86,7 +92,7 @@ public abstract class AbstractWriter<M extends TypedMetadata> extends
 	private boolean sequential;
 
 	/** Where the image should be written. */
-	private RandomAccessOutputStream out;
+	private DataHandleOutputStream<Location> out;
 
 	/** ColorModel for this Writer. */
 	private ColorModel model;
@@ -184,7 +190,7 @@ public abstract class AbstractWriter<M extends TypedMetadata> extends
 	}
 
 	@Override
-	public void setDest(final String fileName) throws FormatException,
+	public void setDest(final Location fileName) throws FormatException,
 		IOException
 	{
 		setDest(fileName, 0);
@@ -192,18 +198,18 @@ public abstract class AbstractWriter<M extends TypedMetadata> extends
 
 	@Override
 	public void setDest(final File file) throws FormatException, IOException {
-		setDest(file.getName(), 0);
+		setDest(new FileLocation(file), 0);
 	}
 
 	@Override
-	public void setDest(final RandomAccessOutputStream out)
+	public void setDest(final DataHandleOutputStream<Location> out)
 		throws FormatException, IOException
 	{
 		setDest(out, 0);
 	}
 
 	@Override
-	public void setDest(final String fileName, final int imageIndex)
+	public void setDest(final Location fileName, final int imageIndex)
 		throws FormatException, IOException
 	{
 		setDest(fileName, imageIndex, new SCIFIOConfig());
@@ -213,18 +219,18 @@ public abstract class AbstractWriter<M extends TypedMetadata> extends
 	public void setDest(final File file, final int imageIndex)
 		throws FormatException, IOException
 	{
-		setDest(file.getName(), imageIndex, new SCIFIOConfig());
+		setDest(new FileLocation(file), imageIndex, new SCIFIOConfig());
 	}
 
 	@Override
-	public void setDest(final RandomAccessOutputStream out, final int imageIndex)
+	public void setDest(final DataHandleOutputStream<Location> out, final int imageIndex)
 		throws FormatException, IOException
 	{
 		setDest(out, imageIndex, new SCIFIOConfig());
 	}
 
 	@Override
-	public void setDest(final String fileName, final SCIFIOConfig config)
+	public void setDest(final Location fileName, final SCIFIOConfig config)
 		throws FormatException, IOException
 	{
 		setDest(fileName, 0, config);
@@ -234,34 +240,35 @@ public abstract class AbstractWriter<M extends TypedMetadata> extends
 	public void setDest(final File file, final SCIFIOConfig config)
 		throws FormatException, IOException
 	{
-		setDest(file.getName(), 0, config);
+		setDest(new FileLocation(file), 0, config);
 	}
 
 	@Override
-	public void setDest(final RandomAccessOutputStream out,
+	public void setDest(final DataHandleOutputStream<Location> out,
 		final SCIFIOConfig config) throws FormatException, IOException
 	{
 		setDest(out, 0, config);
 	}
 
 	@Override
-	public void setDest(final String fileName, final int imageIndex,
+	public void setDest(final Location location, final int imageIndex,
 		final SCIFIOConfig config) throws FormatException, IOException
 	{
-		getMetadata().setDatasetName(fileName);
-		setDest(new RandomAccessOutputStream(getContext(), fileName), imageIndex,
-			config);
+		getMetadata().setDatasetName(location.getURI().toString());
+		DataHandleOutputStream<Location> stream = new DataHandleOutputStream<Location>(getContext().
+				service(DataHandleService.class).create(location));
+		setDest(stream, imageIndex, config);
 	}
 
 	@Override
 	public void setDest(final File file, final int imageIndex,
 		final SCIFIOConfig config) throws FormatException, IOException
 	{
-		setDest(file.getName(), imageIndex, config);
+		setDest(new FileLocation(file), imageIndex, config);
 	}
 
 	@Override
-	public void setDest(final RandomAccessOutputStream out, final int imageIndex,
+	public void setDest(final DataHandleOutputStream<Location> out, final int imageIndex,
 		final SCIFIOConfig config) throws FormatException, IOException
 	{
 		if (metadata == null) throw new FormatException(
@@ -285,7 +292,7 @@ public abstract class AbstractWriter<M extends TypedMetadata> extends
 	}
 
 	@Override
-	public RandomAccessOutputStream getStream() {
+	public DataHandleOutputStream<Location> getStream() {
 		return out;
 	}
 

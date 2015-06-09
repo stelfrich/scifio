@@ -30,6 +30,8 @@
 
 package io.scif;
 
+import org.scijava.io.Location;
+
 /**
  * Encompasses basic metadata about a file.
  */
@@ -37,8 +39,8 @@ public class FileInfo {
 
 	// -- Fields --
 
-	/** Absolute path to this file. */
-	public String filename;
+	/** The location of this file. */
+	public Location location ;
 
 	/** io.scif.Reader implementation that would be used to read this file. */
 	public Class<?> reader;
@@ -53,7 +55,7 @@ public class FileInfo {
 
 	@Override
 	public String toString() {
-		return "filename = " + filename + "\nreader = " + reader.getName() +
+		return "location = " + location.getURI().toString() + "\nreader = " + reader.getName() +
 			"\nused to initialize = " + usedToInitialize;
 	}
 

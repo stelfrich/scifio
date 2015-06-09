@@ -30,6 +30,8 @@
 
 package io.scif.img;
 
+import org.scijava.io.Location;
+
 import io.scif.Metadata;
 import io.scif.SCIFIOService;
 import io.scif.config.SCIFIOConfig;
@@ -94,7 +96,7 @@ public interface ImgUtilityService extends SCIFIOService {
 	 * @param source - the location of the dataset to assess
 	 * @return The number of images in the specified dataset.
 	 */
-	int getImageCount(final String source) throws ImgIOException;
+	int getImageCount(final Location source) throws ImgIOException;
 
 	/**
 	 * see {@link #isCompressible(ImgPlus)}

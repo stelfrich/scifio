@@ -40,6 +40,9 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import org.scijava.io.DataHandleOutputStream;
+import org.scijava.io.Location;
+
 import net.imagej.axis.Axes;
 import net.imagej.axis.AxisType;
 import net.imagej.axis.CalibratedAxis;
@@ -165,7 +168,7 @@ public class SCIFIOMetadataTools {
 	 *           metadata object is uninitialized
 	 */
 	public static void verifyMinimumPopulated(final Metadata src,
-		final RandomAccessOutputStream out) throws FormatException
+		final DataHandleOutputStream<Location> out) throws FormatException
 	{
 		verifyMinimumPopulated(src, out, 0);
 	}
@@ -178,7 +181,7 @@ public class SCIFIOMetadataTools {
 	 *           metadata object is uninitialized
 	 */
 	public static void verifyMinimumPopulated(final Metadata src,
-		final RandomAccessOutputStream out, final int imageIndex)
+		final DataHandleOutputStream<Location> out, final int imageIndex)
 		throws FormatException
 	{
 		if (src == null) {

@@ -52,6 +52,7 @@ import java.util.TreeSet;
 import java.util.WeakHashMap;
 
 import org.scijava.app.AppService;
+import org.scijava.io.Location;
 import org.scijava.log.LogService;
 import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
@@ -243,7 +244,7 @@ public class DefaultFormatService extends AbstractService implements
 	}
 
 	@Override
-	public Writer getWriterByExtension(final String fileId)
+	public Writer getWriterByExtension(final Location fileId)
 		throws FormatException
 	{
 		boolean matched = false;
@@ -297,12 +298,12 @@ public class DefaultFormatService extends AbstractService implements
 	 * @return A Format reference compatible with the provided source.
 	 */
 	@Override
-	public Format getFormat(final String id) throws FormatException {
+	public Format getFormat(final Location id) throws FormatException {
 		return getFormat(id, new SCIFIOConfig().checkerSetOpen(false));
 	}
 
 	@Override
-	public Format getFormat(final String id, final SCIFIOConfig config)
+	public Format getFormat(final Location id, final SCIFIOConfig config)
 		throws FormatException
 	{
 		Format format = formatCache().get(id);
@@ -314,12 +315,12 @@ public class DefaultFormatService extends AbstractService implements
 	}
 
 	@Override
-	public List<Format> getFormatList(final String id) throws FormatException {
+	public List<Format> getFormatList(final Location id) throws FormatException {
 		return getFormatList(id, new SCIFIOConfig().checkerSetOpen(false), false);
 	}
 
 	@Override
-	public List<Format> getFormatList(final String id, final SCIFIOConfig config,
+	public List<Format> getFormatList(final Location id, final SCIFIOConfig config,
 		final boolean greedy) throws FormatException
 	{
 

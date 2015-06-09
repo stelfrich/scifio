@@ -31,12 +31,18 @@
 package io.scif;
 
 import io.scif.config.SCIFIOConfig;
-import io.scif.io.RandomAccessInputStream;
+import io.scif.io.RandomAccessOutputStream;
 import io.scif.util.FormatTools;
 import io.scif.util.SCIFIOMetadataTools;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.scijava.io.DataHandle;
+import org.scijava.io.DataHandleInputStream;
+import org.scijava.io.DataHandleService;
+import org.scijava.io.FileLocation;
+import org.scijava.io.Location;
 
 import net.imagej.axis.Axes;
 
@@ -169,8 +175,8 @@ public abstract class AbstractReader<M extends TypedMetadata, P extends DataPlan
 	}
 
 	@Override
-	public String getCurrentFile() {
-		return getStream() == null ? null : getStream().getFileName();
+	public Location getCurrentFile() {
+		return getStream() == null ? null : metadata.getSource();
 	}
 
 	@Override
@@ -182,7 +188,7 @@ public abstract class AbstractReader<M extends TypedMetadata, P extends DataPlan
 	}
 
 	@Override
-	public RandomAccessInputStream getStream() {
+	public DataHandleInputStream<Location> getStream() {
 		return metadata == null ? null : metadata.getSource();
 	}
 
@@ -235,7 +241,7 @@ public abstract class AbstractReader<M extends TypedMetadata, P extends DataPlan
 	}
 
 	@Override
-	public void setSource(final String fileName) throws IOException {
+	public void setSource(final Location fileName) throws IOException {
 		setSource(fileName, new SCIFIOConfig());
 	}
 
@@ -245,14 +251,14 @@ public abstract class AbstractReader<M extends TypedMetadata, P extends DataPlan
 	}
 
 	@Override
-	public void setSource(final RandomAccessInputStream stream)
+	public void setSource(final DataHandleInputStream<Location> stream)
 		throws IOException
 	{
 		setSource(stream, new SCIFIOConfig());
 	}
 
 	@Override
-	public void setSource(final String fileName, final SCIFIOConfig config)
+	public void setSource(final Location fileName, final SCIFIOConfig config)
 		throws IOException
 	{
 
@@ -264,8 +270,8 @@ public abstract class AbstractReader<M extends TypedMetadata, P extends DataPlan
 		}
 
 		close();
-		final RandomAccessInputStream stream =
-			new RandomAccessInputStream(getContext(), fileName);
+		final DataHandleInputStream<Location> stream =
+			new DataHandleInputStream<Location>(getContext().service(DataHandleService.class).create(fileName));
 		try {
 			setMetadata(getFormat().createParser().parse(stream, config));
 		}
@@ -280,15 +286,15 @@ public abstract class AbstractReader<M extends TypedMetadata, P extends DataPlan
 	public void setSource(final File file, final SCIFIOConfig config)
 		throws IOException
 	{
-		setSource(file.getName(), config);
+		setSource(new FileLocation(file), config);
 	}
 
 	@Override
-	public void setSource(final RandomAccessInputStream stream,
+	public void setSource(final DataHandleInputStream<Location> stream,
 		final SCIFIOConfig config) throws IOException
 	{
-		final String currentSource = getStream().getFileName();
-		final String newSource = stream.getFileName();
+		final Location currentSource = getStream().getFileName();
+		final Location newSource = stream.getFileName();
 		if (metadata != null &&
 			(currentSource == null || newSource == null || !getStream().getFileName()
 				.equals(stream.getFileName()))) close();
@@ -306,7 +312,7 @@ public abstract class AbstractReader<M extends TypedMetadata, P extends DataPlan
 	}
 
 	@Override
-	public Plane readPlane(final RandomAccessInputStream s, final int imageIndex,
+	public Plane readPlane(final DataHandleInputStream<Location> s, final int imageIndex,
 		final long[] planeMin, final long[] planeMax, final Plane plane)
 		throws IOException
 	{
@@ -315,7 +321,7 @@ public abstract class AbstractReader<M extends TypedMetadata, P extends DataPlan
 	}
 
 	@Override
-	public Plane readPlane(final RandomAccessInputStream s, final int imageIndex,
+	public Plane readPlane(final DataHandleInputStream<Location> s, final int imageIndex,
 		final long[] planeMin, final long[] planeMax, final int scanlinePad,
 		final Plane plane) throws IOException
 	{
@@ -383,7 +389,7 @@ public abstract class AbstractReader<M extends TypedMetadata, P extends DataPlan
 	}
 
 	@Override
-	public P readPlane(final RandomAccessInputStream s, final int imageIndex,
+	public P readPlane(final DataHandleInputStream<Location> s, final int imageIndex,
 		final long[] planeMin, final long[] planeMax, final P plane)
 		throws IOException
 	{
@@ -391,7 +397,7 @@ public abstract class AbstractReader<M extends TypedMetadata, P extends DataPlan
 	}
 
 	@Override
-	public P readPlane(final RandomAccessInputStream s, final int imageIndex,
+	public P readPlane(final DataHandleInputStream<Location> s, final int imageIndex,
 		final long[] planeMin, final long[] planeMax, final int scanlinePad,
 		final P plane) throws IOException
 	{
@@ -436,7 +442,7 @@ public abstract class AbstractReader<M extends TypedMetadata, P extends DataPlan
 				long c = metadata.get(imageIndex).getAxisLength(Axes.CHANNEL);
 				if (c <= 0 || !metadata.get(imageIndex).isMultichannel()) c = 1;
 				for (int channel = 0; channel < c; channel++) {
-
+					
 					s.skipBytes(y * rowLen);
 					s.read(bytes, channel * h * rowLen, h * rowLen);
 					if (channel < c - 1) {

@@ -56,6 +56,8 @@ import net.imglib2.type.numeric.real.DoubleType;
 import net.imglib2.type.numeric.real.FloatType;
 
 import org.junit.Test;
+import org.scijava.io.FileLocation;
+import org.scijava.io.Location;
 
 /**
  * Tests for the {@link ImgOpener} class.
@@ -68,7 +70,7 @@ public class ImgOpenerTest {
 	// to ensure all necessary services are present
 	private final ImgOpener imgOpener = new ImgOpener();
 
-	private final String id = "testImg&lengths=512,512,5&axes=X,Y,Time.fake";
+	private final Location id = new FileLocation("testImg&lengths=512,512,5&axes=X,Y,Time.fake");
 
 	/**
 	 * Verify that SCIFIO Metadata calibration values are preserved in an opened
@@ -137,11 +139,11 @@ public class ImgOpenerTest {
 	 */
 	@Test
 	public void testOpenAllImages() throws ImgIOException {
-		final String id = "testImg&images=5&lengths=512,512&axes=X,Y.fake";
+		FileLocation loc = new FileLocation("testImg&images=5&lengths=512,512&axes=X,Y.fake");
 
 		// Open all images
 		final List<SCIFIOImgPlus<?>> imgs =
-			new MultiImgOpener().openImgs(id, new SCIFIOConfig()
+			new MultiImgOpener().openImgs(loc, new SCIFIOConfig()
 				.imgOpenerSetOpenAllImages(true));
 
 		// Check the size
@@ -164,7 +166,7 @@ public class ImgOpenerTest {
 	 * @throws ImgIOException
 	 */
 	public void testOpenImageRange() throws ImgIOException {
-		final String id = "testImg&images=5&lengths=512,512&axes=X,Y.fake";
+		final FileLocation id = new FileLocation("testImg&images=5&lengths=512,512&axes=X,Y.fake");
 
 		// Open images 0 and 3
 		final List<SCIFIOImgPlus<?>> imgs =

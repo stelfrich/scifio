@@ -38,6 +38,9 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.scijava.io.DataHandleInputStream;
+import org.scijava.io.Location;
+
 /**
  * Abstract superclass of all SCIFIO {@link io.scif.Metadata} implementations.
  *
@@ -53,7 +56,7 @@ public abstract class AbstractMetadata extends AbstractHasSource implements
 	// -- Fields --
 
 	/* The image source associated with this Metadata. */
-	private RandomAccessInputStream source;
+	private DataHandleInputStream<Location> source;
 
 	/* Whether the Metadata should be filtered or not. */
 	private boolean filtered;
@@ -94,14 +97,13 @@ public abstract class AbstractMetadata extends AbstractHasSource implements
 	// -- Metadata API Methods --
 
 	@Override
-	public void setSource(final RandomAccessInputStream source) {
+	public void setSource(DataHandleInputStream<Location> source) {
 		this.source = source;
-
 		if (source != null) setDatasetName(source.getFileName());
 	}
 
 	@Override
-	public RandomAccessInputStream getSource() {
+	public DataHandleInputStream<Location> getSource() {
 		return source;
 	}
 

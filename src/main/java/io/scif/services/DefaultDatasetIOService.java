@@ -50,6 +50,7 @@ import net.imagej.axis.Axes;
 import net.imagej.axis.CalibratedAxis;
 import net.imglib2.exception.IncompatibleTypeException;
 
+import org.scijava.io.Location;
 import org.scijava.log.LogService;
 import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
@@ -76,7 +77,7 @@ public class DefaultDatasetIOService extends AbstractService implements
 	private LogService log;
 
 	@Override
-	public boolean canOpen(final String source) {
+	public boolean canOpen(final Location source) {
 		try {
 			return formatService.getFormat(source, new SCIFIOConfig()
 				.checkerSetOpen(true)) != null;
@@ -88,7 +89,7 @@ public class DefaultDatasetIOService extends AbstractService implements
 	}
 
 	@Override
-	public boolean canSave(final String destination) {
+	public boolean canSave(final Location destination) {
 		try {
 			return formatService.getWriterByExtension(destination) != null;
 		}
@@ -99,7 +100,7 @@ public class DefaultDatasetIOService extends AbstractService implements
 	}
 
 	@Override
-	public Dataset open(final String source) throws IOException {
+	public Dataset open(final Location source) throws IOException {
 		final SCIFIOConfig config = new SCIFIOConfig();
 		config.imgOpenerSetIndex(0);
 		// skip min/max computation
@@ -110,7 +111,7 @@ public class DefaultDatasetIOService extends AbstractService implements
 	}
 
 	@Override
-	public Dataset open(final String source, final SCIFIOConfig config)
+	public Dataset open(final Location source, final SCIFIOConfig config)
 		throws IOException
 	{
 		final ImgOpener imageOpener = new ImgOpener(getContext());
@@ -136,14 +137,14 @@ public class DefaultDatasetIOService extends AbstractService implements
 	}
 
 	@Override
-	public Metadata save(final Dataset dataset, final String destination)
+	public Metadata save(final Dataset dataset, final Location destination)
 		throws IOException
 	{
 		return save(dataset, destination, new SCIFIOConfig());
 	}
 
 	@Override
-	public Metadata save(final Dataset dataset, final String destination,
+	public Metadata save(final Dataset dataset, final Location destination,
 		final SCIFIOConfig config) throws IOException
 	{
 		@SuppressWarnings("rawtypes")
@@ -159,7 +160,8 @@ public class DefaultDatasetIOService extends AbstractService implements
 		catch (final IncompatibleTypeException exc) {
 			throw new IOException(exc);
 		}
-		final String name = new File(destination).getName();
+
+		final String name = new File(destination.getURI()).getName();
 		dataset.setName(name);
 		dataset.setDirty(false);
 		return metadata;

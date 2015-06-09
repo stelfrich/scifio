@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>scifio</artifactId>
-	<version>0.24.1-SNAPSHOT</version>
+	<version>0.24.1-ROBUST-IO</version>
 
 	<name>SCIFIO Core</name>
 	<description>SCIFIO is a next generation library for scientific image format I/O.</description>
@@ -62,6 +62,7 @@
 		<dependency>
 			<groupId>org.scijava</groupId>
 			<artifactId>scijava-common</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 
 		<!-- Third-party dependencies -->

@@ -45,6 +45,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 
+import org.scijava.io.DataHandleInputStream;
+import org.scijava.io.Location;
+
 import net.imagej.axis.Axes;
 import net.imagej.axis.AxisType;
 import net.imagej.axis.CalibratedAxis;
@@ -592,7 +595,7 @@ public final class FormatTools {
 	 *          reported as part of the exception message, if available. Use zero
 	 *          to suppress output of the calling method name.
 	 */
-	public static void assertStream(final RandomAccessInputStream stream,
+	public static void assertStream(final DataHandleInputStream<Location> stream,
 		final boolean notNull, final int depth)
 	{
 		String msg = null;
@@ -921,6 +924,7 @@ public final class FormatTools {
 	 * @throws FormatException Never actually thrown.
 	 * @throws IOException Never actually thrown.
 	 */
+	// FIXME this needs refactoring
 	public static String getFilename(final int imageIndex, final int image,
 		final Reader r, final String pattern) throws FormatException, IOException
 	{
@@ -1252,16 +1256,16 @@ public final class FormatTools {
 		return defaultMinMax(iMeta.getPixelType(), iMeta.getBitsPerPixel());
 	}
 
-	/** Performs suffix matching for the given filename. */
-	public static boolean checkSuffix(final String name, final String suffix) {
+	/** Performs suffix matching for the given Location. */
+	public static boolean checkSuffix(final Location name, final String suffix) {
 		return checkSuffix(name, new String[] { suffix });
 	}
 
 	/** Performs suffix matching for the given filename. */
 	public static boolean
-		checkSuffix(final String name, final String[] suffixList)
+		checkSuffix(final Location name, final String[] suffixList)
 	{
-		final String lname = name.toLowerCase();
+		final String lname = name.getURI().toString().toLowerCase();
 		for (final String suffix : suffixList) {
 			final String s = "." + suffix;
 			if (lname.endsWith(s)) return true;

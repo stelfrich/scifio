@@ -37,6 +37,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
+import org.scijava.io.DataHandleInputStream;
+import org.scijava.io.Location;
+
 /**
  * Interface for all SCIFIO Parsers.
  * <p>
@@ -58,7 +61,7 @@ public interface Parser extends HasFormat, HasSource, Groupable {
 	 * @param fileName Name of the image source to parse.
 	 * @return A new {@code Metadata} object of the appropriate type.
 	 */
-	Metadata parse(String fileName) throws IOException, FormatException;
+	Metadata parse(Location fileName) throws IOException, FormatException;
 
 	/**
 	 * Creates a {@code Metadata} object from the provided image file.
@@ -74,11 +77,11 @@ public interface Parser extends HasFormat, HasSource, Groupable {
 	 * @param stream a random access handle to the image source to parse.
 	 * @return A new {@code Metadata} object of the appropriate type.
 	 */
-	Metadata parse(RandomAccessInputStream stream) throws IOException,
+	Metadata parse(DataHandleInputStream<Location> stream) throws IOException,
 		FormatException;
 
 	/**
-	 * Parses metadata using the provided name of an image source, and writes to
+	 * Parses metadata using the provided Location of an image source, and writes to
 	 * an existing {@code Metadata} object (overwriting may occur).
 	 *
 	 * @param fileName Name of the image source to parse.
@@ -87,7 +90,7 @@ public interface Parser extends HasFormat, HasSource, Groupable {
 	 * @throws IllegalArgumentException if meta is not assignable from the
 	 *           {@code Metadata} associated with this {@code Parser's Format}
 	 */
-	Metadata parse(String fileName, Metadata meta) throws IOException,
+	Metadata parse(Location fileName, Metadata meta) throws IOException,
 		FormatException;
 
 	/**
@@ -112,17 +115,17 @@ public interface Parser extends HasFormat, HasSource, Groupable {
 	 * @throws IllegalArgumentException if meta is not assignable from the
 	 *           {@code Metadata} associated with this {@code Parser's Format}
 	 */
-	Metadata parse(RandomAccessInputStream stream, Metadata meta)
+	Metadata parse(DataHandleInputStream<Location> stream, Metadata meta)
 		throws IOException, FormatException;
 
 	/**
-	 * As {@link #parse(String)} with configuration options.
+	 * As {@link #parse(Location)} with configuration options.
 	 *
-	 * @param fileName Name of the image source to parse.
+	 * @param location the Location of the image source to parse.
 	 * @param config Configuration information to use for this parse.
 	 * @return A new {@code Metadata} object of the appropriate type.
 	 */
-	Metadata parse(String fileName, SCIFIOConfig config) throws IOException,
+	Metadata parse(Location location, SCIFIOConfig config) throws IOException,
 		FormatException;
 
 	/**
@@ -142,7 +145,7 @@ public interface Parser extends HasFormat, HasSource, Groupable {
 	 * @param config Configuration information to use for this parse.
 	 * @return A new {@code Metadata} object of the appropriate type.
 	 */
-	Metadata parse(RandomAccessInputStream stream, SCIFIOConfig config)
+	Metadata parse(DataHandleInputStream<Location> stream, SCIFIOConfig config)
 		throws IOException, FormatException;
 
 	/**
@@ -156,7 +159,7 @@ public interface Parser extends HasFormat, HasSource, Groupable {
 	 * @throws IllegalArgumentException if meta is not assignable from the
 	 *           {@code Metadata} associated with this {@code Parser's Format}
 	 */
-	Metadata parse(String fileName, Metadata meta, SCIFIOConfig config)
+	Metadata parse(Location fileName, Metadata meta, SCIFIOConfig config)
 		throws IOException, FormatException;
 
 	/**
@@ -183,7 +186,7 @@ public interface Parser extends HasFormat, HasSource, Groupable {
 	 * @throws IllegalArgumentException if meta is not assignable from the
 	 *           {@code Metadata} associated with this {@code Parser's Format}
 	 */
-	Metadata parse(RandomAccessInputStream stream, Metadata meta,
+	Metadata parse(DataHandleInputStream<Location> stream, Metadata meta,
 		SCIFIOConfig config) throws IOException, FormatException;
 
 	/**
@@ -194,33 +197,33 @@ public interface Parser extends HasFormat, HasSource, Groupable {
 	/**
 	 * @return The last input stream read by this parser.
 	 */
-	RandomAccessInputStream getSource();
+	DataHandleInputStream<Location> getSource();
 
 	/**
 	 * Updates the source being operated on by this parser (e.g. in multi-file
 	 * formats).
 	 */
-	void updateSource(String source) throws IOException;
+	void updateSource(Location source) throws IOException;
 
 	/** Returns an array of filenames needed to open this dataset. */
-	String[] getUsedFiles();
+	Location[] getUsedFiles();
 
 	/**
 	 * Returns an array of filenames needed to open this dataset. If the
 	 * 'noPixels' flag is set, then only files that do not contain pixel data will
 	 * be returned.
 	 */
-	String[] getUsedFiles(boolean noPixels);
+	Location[] getUsedFiles(boolean noPixels);
 
 	/** Returns an array of filenames needed to open the indicated image index. */
-	String[] getImageUsedFiles(int imageIndex);
+	Location[] getImageUsedFiles(int imageIndex);
 
 	/**
 	 * Returns an array of filenames needed to open the indicated image. If the
 	 * 'noPixels' flag is set, then only files that do not contain pixel data will
 	 * be returned.
 	 */
-	String[] getImageUsedFiles(int imageIndex, boolean noPixels);
+	Location[] getImageUsedFiles(int imageIndex, boolean noPixels);
 
 	/**
 	 * Returns an array of FileInfo objects representing the files needed to open

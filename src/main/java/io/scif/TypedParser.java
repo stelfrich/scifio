@@ -31,10 +31,12 @@
 package io.scif;
 
 import io.scif.config.SCIFIOConfig;
-import io.scif.io.RandomAccessInputStream;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.scijava.io.DataHandleInputStream;
+import org.scijava.io.Location;
 
 /**
  * Interface for all {@link io.scif.Parser} implementations that use generic
@@ -52,23 +54,23 @@ import java.io.IOException;
 public interface TypedParser<M extends TypedMetadata> extends Parser {
 
 	@Override
-	M parse(String fileName) throws IOException, FormatException;
+	M parse(Location fileName) throws IOException, FormatException;
 
 	@Override
 	M parse(File file) throws IOException, FormatException;
 
 	@Override
-	M parse(RandomAccessInputStream stream) throws IOException, FormatException;
+	M parse(DataHandleInputStream<Location> stream) throws IOException, FormatException;
 
 	@Override
-	M parse(String fileName, SCIFIOConfig config) throws IOException,
+	M parse(Location fileName, SCIFIOConfig config) throws IOException,
 		FormatException;
 
 	@Override
 	M parse(File file, SCIFIOConfig config) throws IOException, FormatException;
 
 	@Override
-	M parse(RandomAccessInputStream stream, SCIFIOConfig config)
+	M parse(DataHandleInputStream<Location> stream, SCIFIOConfig config)
 		throws IOException, FormatException;
 
 	/**
@@ -78,7 +80,7 @@ public interface TypedParser<M extends TypedMetadata> extends Parser {
 	 *
 	 * @see io.scif.Parser#parse(String, Metadata)
 	 */
-	M parse(String fileName, M meta) throws IOException, FormatException;
+	M parse(Location fileName, M meta) throws IOException, FormatException;
 
 	/**
 	 * Generic-parameterized {@code parse} method, using
@@ -92,11 +94,11 @@ public interface TypedParser<M extends TypedMetadata> extends Parser {
 	/**
 	 * Generic-parameterized {@code parse} method, using
 	 * {@link io.scif.TypedMetadata} to avoid type erasure conflicts with
-	 * {@link io.scif.Parser#parse(RandomAccessInputStream, Metadata)}.
+	 * {@link io.scif.Parser#parse(DataHandleInputStream<Location>, Metadata)}.
 	 *
-	 * @see io.scif.Parser#parse(RandomAccessInputStream, Metadata)
+	 * @see io.scif.Parser#parse(DataHandleInputStream<Location>, Metadata)
 	 */
-	M parse(RandomAccessInputStream stream, M meta) throws IOException,
+	M parse(DataHandleInputStream<Location> stream, M meta) throws IOException,
 		FormatException;
 
 	/**
@@ -106,7 +108,7 @@ public interface TypedParser<M extends TypedMetadata> extends Parser {
 	 *
 	 * @see io.scif.Parser#parse(String, Metadata, SCIFIOConfig)
 	 */
-	M parse(String fileName, M meta, SCIFIOConfig config) throws IOException,
+	M parse(Location fileName, M meta, SCIFIOConfig config) throws IOException,
 		FormatException;
 
 	/**
@@ -122,10 +124,10 @@ public interface TypedParser<M extends TypedMetadata> extends Parser {
 	/**
 	 * Generic-parameterized {@code parse} method, using
 	 * {@link io.scif.TypedMetadata} to avoid type erasure conflicts with
-	 * {@link io.scif.Parser#parse(RandomAccessInputStream, Metadata)}.
+	 * {@link io.scif.Parser#parse(DataHandleInputStream<Location>, Metadata)}.
 	 *
-	 * @see io.scif.Parser#parse(RandomAccessInputStream, Metadata, SCIFIOConfig)
+	 * @see io.scif.Parser#parse(DataHandleInputStream<Location>, Metadata, SCIFIOConfig)
 	 */
-	M parse(RandomAccessInputStream stream, M meta, SCIFIOConfig config)
+	M parse(DataHandleInputStream<Location> stream, M meta, SCIFIOConfig config)
 		throws IOException, FormatException;
 }

@@ -36,6 +36,10 @@ import io.scif.util.FormatTools;
 
 import java.io.IOException;
 
+import org.scijava.io.DataHandleInputStream;
+import org.scijava.io.DataHandleService;
+import org.scijava.io.Location;
+
 /**
  * Abstract superclass of all SCIFIO {@link io.scif.Checker} implementations.
  *
@@ -60,12 +64,12 @@ public abstract class AbstractChecker extends AbstractHasFormat implements
 	}
 
 	@Override
-	public boolean isFormat(final String name) {
+	public boolean isFormat(final Location name) {
 		return isFormat(name, new SCIFIOConfig());
 	}
 
 	@Override
-	public boolean isFormat(final String name, final SCIFIOConfig config) {
+	public boolean isFormat(final Location name, final SCIFIOConfig config) {
 		final boolean open = config.checkerIsOpen();
 
 		// if file extension ID is insufficient and we can't open the file, give
@@ -88,8 +92,8 @@ public abstract class AbstractChecker extends AbstractHasFormat implements
 		// contents
 		if (!open) return false; // not allowed to open any files
 		try {
-			final RandomAccessInputStream stream =
-				new RandomAccessInputStream(getContext(), name);
+			DataHandleInputStream<Location> stream = new DataHandleInputStream<Location>(getContext().
+					service(DataHandleService.class).create(name));
 			final boolean isFormat = isFormat(stream);
 			stream.close();
 			return isFormat;
@@ -101,7 +105,7 @@ public abstract class AbstractChecker extends AbstractHasFormat implements
 	}
 
 	@Override
-	public boolean isFormat(final RandomAccessInputStream stream)
+	public boolean isFormat(final DataHandleInputStream<Location> stream)
 		throws IOException
 	{
 		return false;
