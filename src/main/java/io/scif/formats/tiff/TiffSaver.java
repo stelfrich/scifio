@@ -937,9 +937,8 @@ public class TiffSaver extends AbstractContextual {
 	{
 		final int bytesPerPixel = FormatTools.getBytesPerPixel(pixelType);
 		final int bps = 8 * bytesPerPixel;
-		final int[] bpsArray = new int[nChannels];
-		Arrays.fill(bpsArray, bps);
-		ifd.putIFDValue(IFD.BITS_PER_SAMPLE, bpsArray);
+
+		ifd.putIFDValue(IFD.BITS_PER_SAMPLE, bps);
 
 		if (FormatTools.isFloatingPoint(pixelType)) {
 			ifd.putIFDValue(IFD.SAMPLE_FORMAT, 3);
@@ -955,7 +954,7 @@ public class TiffSaver extends AbstractContextual {
 				? PhotoInterp.BLACK_IS_ZERO : PhotoInterp.RGB;
 		ifd.putIFDValue(IFD.PHOTOMETRIC_INTERPRETATION, pi.getCode());
 
-		ifd.putIFDValue(IFD.SAMPLES_PER_PIXEL, nChannels);
+		ifd.putIFDValue(IFD.SAMPLES_PER_PIXEL, 1);
 
 		if (ifd.get(IFD.X_RESOLUTION) == null) {
 			ifd.putIFDValue(IFD.X_RESOLUTION, new TiffRational(1, 1));

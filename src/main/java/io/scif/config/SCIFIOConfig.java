@@ -147,7 +147,7 @@ public class SCIFIOConfig extends HashMap<String, Object> {
 	private ImgFactoryHeuristic imgFactoryHeuristic = null;
 
 	// ImgSaver
-	private boolean writeRGB = true;
+	private boolean writeRGB = false;
 
 	// -- Constructors --
 

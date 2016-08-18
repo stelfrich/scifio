@@ -1791,13 +1791,6 @@ public class TIFFFormat extends AbstractFormat {
 			final ImageMetadata m = source.get(0);
 
 			long planeCount = m.getPlaneCount();
-			// if Axes.CHANNEL isn't part of the planar axes, we have
-			// to manually coerce it to be an RGB tiff, as that's how
-			// TIFF expects additional channels
-			if (m.getAxisIndex(Axes.CHANNEL) >= m.getPlanarAxisCount()) {
-				planeCount /= m.getAxisLength(Axes.CHANNEL);
-			}
-
 			for (int i = 0; i < planeCount; i++)
 				ifds.add(new IFD(log()));
 
@@ -1815,14 +1808,12 @@ public class TIFFFormat extends AbstractFormat {
 				sampleFormat = 1;
 			}
 
-			firstIFD.putIFDValue(IFD.BITS_PER_SAMPLE,
-				new int[] { m.getBitsPerPixel() });
+			firstIFD.putIFDValue(IFD.BITS_PER_SAMPLE, m.getBitsPerPixel());
 			firstIFD.putIFDValue(IFD.SAMPLE_FORMAT, sampleFormat);
 			firstIFD.putIFDValue(IFD.LITTLE_ENDIAN, m.isLittleEndian());
 			firstIFD.putIFDValue(IFD.IMAGE_WIDTH, m.getAxisLength(Axes.X));
 			firstIFD.putIFDValue(IFD.IMAGE_LENGTH, m.getAxisLength(Axes.Y));
-			firstIFD
-				.putIFDValue(IFD.SAMPLES_PER_PIXEL, m.getAxisLength(Axes.CHANNEL));
+			firstIFD.putIFDValue(IFD.SAMPLES_PER_PIXEL, 1);
 
 			firstIFD.putIFDValue(IFD.PHOTOMETRIC_INTERPRETATION,
 				PhotoInterp.BLACK_IS_ZERO);
